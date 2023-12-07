@@ -5,11 +5,13 @@ import com.personal.poll.domain.models.PollEntity;
 import com.personal.poll.util.ValidationMessages;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PollCreateDTO {
 
     @NotEmpty(message = ValidationMessages.NOT_EMPTY)

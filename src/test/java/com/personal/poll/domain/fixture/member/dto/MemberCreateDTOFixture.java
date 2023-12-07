@@ -9,8 +9,8 @@ public class MemberCreateDTOFixture {
 
     public static MemberCreateDTO random() {
         return new MemberCreateDTO(
-                RandomStringUtils.random(20),
-                RandomStringUtils.randomAlphanumeric(11)
+                RandomStringUtils.randomAlphabetic(1, 40),
+                RandomStringUtils.randomNumeric(11)
         );
     }
 }

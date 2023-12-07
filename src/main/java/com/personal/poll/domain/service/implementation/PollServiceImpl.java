@@ -32,7 +32,7 @@ public class PollServiceImpl implements IPollService {
     @Override
     public PollViewDTO create(PollCreateDTO pollCreate) {
         PollEntity poll = pollCreate.toEntity();
-        return new PollViewDTO(poll);
+        return new PollViewDTO(pollRepository.save(poll));
     }
 
     @Override
