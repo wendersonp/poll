@@ -1,20 +1,11 @@
 package com.personal.poll.domain.exception;
 
+import com.personal.poll.util.ExceptionMessages;
+
 public class MemberCpfNotUniqueException extends RuntimeException{
 
     public MemberCpfNotUniqueException() {
-        super();
+        super(ExceptionMessages.MEMBER_CPF_NOT_UNIQUE);
     }
 
-    public MemberCpfNotUniqueException(String message) {
-        super(message);
-    }
-
-    public MemberCpfNotUniqueException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public MemberCpfNotUniqueException(Throwable cause) {
-        super(cause);
-    }
 }

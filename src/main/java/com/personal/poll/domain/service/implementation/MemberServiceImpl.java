@@ -6,6 +6,8 @@ import com.personal.poll.domain.exception.MemberCpfNotUniqueException;
 import com.personal.poll.domain.models.MemberEntity;
 import com.personal.poll.domain.repository.IMemberRepository;
 import com.personal.poll.domain.service.IMemberService;
+import com.personal.poll.util.ExceptionMessages;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +29,13 @@ public class MemberServiceImpl implements IMemberService {
             return new MemberViewDTO(memberEntity);
         } catch (ConstraintViolationException exception) {
             log.warn("Membro de documento {} já existe em sistema", memberEntity.getCpfNumber());
-            throw new MemberCpfNotUniqueException("Membro já existe em sistema", exception);
+            throw new MemberCpfNotUniqueException();
         }
+    }
+
+    @Override
+    public MemberEntity find(Long id) {
+        return memberRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(ExceptionMessages.MEMBER_NOT_FOUND));
     }
 }

@@ -49,4 +49,12 @@ public class PollEntity {
         this.endTime = endTime;
         this.status = PollStatusEnum.OPEN;
     }
+
+    public void calculateVote(VoteValueEnum vote) {
+        if (VoteValueEnum.YES.equals(vote)) {
+            totalPositiveVotes = totalPositiveVotes + 1;
+        } else {
+            totalNegativeVotes = totalNegativeVotes + 1;
+        }
+    }
 }
