@@ -1,6 +1,7 @@
 package com.personal.poll.domain.service.implementation;
 
 import com.personal.poll.domain.dto.poll.PollCreateDTO;
+import com.personal.poll.domain.dto.poll.PollStartDTO;
 import com.personal.poll.domain.dto.poll.PollViewDTO;
 import com.personal.poll.domain.models.PollEntity;
 import com.personal.poll.domain.repository.IPollRepository;
@@ -36,7 +37,7 @@ public class PollServiceImpl implements IPollService {
     }
 
     @Override
-    public void start(Long id, Long durationInSeconds) {
+    public PollStartDTO start(Long id, Long durationInSeconds) {
         PollEntity poll = find(id);
 
         LocalDateTime startTime = LocalDateTime.now();
@@ -46,6 +47,8 @@ public class PollServiceImpl implements IPollService {
         pollRepository.save(poll);
         scheduler.scheduleWithFixedDelay(() -> voteCountService.countVotesOfPoll(id),
                 Duration.ofSeconds(durationInSeconds + VOTE_COUNT_GAP));
+
+        return new PollStartDTO(poll);
     }
 
     @Override
