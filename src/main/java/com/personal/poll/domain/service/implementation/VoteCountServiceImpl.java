@@ -1,10 +1,12 @@
 package com.personal.poll.domain.service.implementation;
 
+import com.personal.poll.domain.dto.poll.PollResultDTO;
 import com.personal.poll.domain.enums.PollStatusEnum;
 import com.personal.poll.domain.enums.VoteValueEnum;
 import com.personal.poll.domain.models.PollEntity;
 import com.personal.poll.domain.repository.IPollRepository;
 import com.personal.poll.domain.service.IVoteCountService;
+import com.personal.poll.domain.service.IPollResultMessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class VoteCountServiceImpl implements IVoteCountService {
 
     private final IPollRepository pollRepository;
 
+    private final IPollResultMessageService pollResultMessageService;
+
     @Override
     public void countVotesOfPoll(Long pollId) {
         var poll = findPoll(pollId);
@@ -26,14 +30,13 @@ public class VoteCountServiceImpl implements IVoteCountService {
             startVoteCount(poll);
             log.info("Agenda: {}, Winning vote: {}, Total votes {}",
                     poll.getSubject(), poll.getWinningVote(), totalVotes);
-            //TODO: enviar mensagem do resultado para a fila
-            //TODO: lembrar de criar verificação para reagendar contagens caso o serviço caia
+            pollResultMessageService.send(new PollResultDTO(poll));
             pollRepository.save(poll);
         }
     }
 
     private PollEntity findPoll(Long pollId) {
-        return pollRepository.findById(pollId).orElseThrow(() -> {
+        return pollRepository.findPollWithVotesById(pollId).orElseThrow(() -> {
             log.error("Could not find poll of id {} to count", pollId);
             return new IllegalStateException();
         });

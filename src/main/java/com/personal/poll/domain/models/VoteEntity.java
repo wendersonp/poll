@@ -18,7 +18,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "tb_vote", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"agenda", "voter"})
+        @UniqueConstraint(columnNames = {"fk_agenda", "fk_voter"})
 })
 @Getter
 @Setter
