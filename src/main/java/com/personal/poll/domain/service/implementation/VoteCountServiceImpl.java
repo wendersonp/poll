@@ -24,11 +24,11 @@ public class VoteCountServiceImpl implements IVoteCountService {
         if (poll.getStatus().equals(PollStatusEnum.OPEN) && LocalDateTime.now().isAfter(poll.getEndTime())) {
             Long totalVotes = poll.getTotalPositiveVotes() + poll.getTotalNegativeVotes();
             startVoteCount(poll);
-            pollRepository.save(poll);
             log.info("Agenda: {}, Winning vote: {}, Total votes {}",
                     poll.getSubject(), poll.getWinningVote(), totalVotes);
             //TODO: enviar mensagem do resultado para a fila
             //TODO: lembrar de criar verificação para reagendar contagens caso o serviço caia
+            pollRepository.save(poll);
         }
     }
 

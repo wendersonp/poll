@@ -12,7 +12,6 @@ import com.personal.poll.domain.service.implementation.PollServiceImpl;
 import com.personal.poll.util.AssertUtils;
 import com.personal.poll.util.RandomUtils;
 import jakarta.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalAnswers;
@@ -23,6 +22,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.scheduling.TaskScheduler;
 
 import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -62,7 +64,7 @@ class PollServiceImplTest {
 
     @Test
     void shouldStartVotingSuccessfully() {
-        PollEntity agenda = PollEntityFixture.randomPending(RandomUtils.random.nextLong());
+        PollEntity agenda = PollEntityFixture.randomPending();
         long duration = RandomUtils.random.nextLong(0, 500);
 
         when(pollRepository.findById(any())).thenReturn(Optional.of(agenda));
@@ -74,12 +76,15 @@ class PollServiceImplTest {
         assertEquals(agenda.getStartTime().plusSeconds(duration), agenda.getEndTime());
         assertEquals(PollStatusEnum.OPEN, agenda.getStatus());
         verify(scheduler, times(1))
-                .scheduleWithFixedDelay(any(Runnable.class), any(Duration.class));
+                .schedule(any(Runnable.class),(Instant) argThat((Instant instant) -> {
+                    LocalDateTime executionTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+                    return executionTime.isAfter(agenda.getEndTime());
+                }));
     }
 
     @Test
     void shouldFindPollSuccessfully() {
-        PollEntity agenda = PollEntityFixture.randomPending(RandomUtils.random.nextLong());
+        PollEntity agenda = PollEntityFixture.randomPending();
         when(pollRepository.findById(agenda.getId())).thenReturn(Optional.of(agenda));
 
         var foundAgenda = service.find(agenda.getId());

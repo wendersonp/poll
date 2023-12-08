@@ -1,4 +1,4 @@
-package com.personal.poll.domain.fixture.poll.models;
+package com.personal.poll.domain.fixture.member.models;
 
 import com.personal.poll.domain.models.MemberEntity;
 import com.personal.poll.util.RandomUtils;

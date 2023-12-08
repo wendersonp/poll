@@ -1,4 +1,4 @@
-package com.personal.poll.domain.fixture.poll.dto;
+package com.personal.poll.domain.fixture.vote.dto;
 
 import com.personal.poll.domain.dto.vote.VoteRegistryDTO;
 import com.personal.poll.domain.enums.VoteValueEnum;

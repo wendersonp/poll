@@ -9,23 +9,35 @@ import java.time.LocalDateTime;
 
 public class PollEntityFixture {
 
-    public static PollEntity randomPending(Long id) {
+    public static PollEntity randomPending() {
         return PollEntity.builder()
                 .subject(RandomStringUtils.randomAlphabetic(1, 60))
                 .status(PollStatusEnum.PENDING)
-                .id(id)
+                .id(RandomUtils.random.nextLong())
                 .build();
     }
 
-    public static PollEntity randomOpen(Long id) {
+    public static PollEntity randomOpen() {
         return PollEntity.builder()
                 .subject(RandomStringUtils.randomAlphabetic(1, 60))
                 .status(PollStatusEnum.OPEN)
                 .totalPositiveVotes(RandomUtils.random.nextLong(0, 10))
                 .totalNegativeVotes(RandomUtils.random.nextLong(0, 10))
                 .startTime(LocalDateTime.now())
-                .endTime(LocalDateTime.now().plusMinutes(RandomUtils.random.nextLong(0, 300)))
-                .id(id)
+                .endTime(LocalDateTime.now().plusSeconds(RandomUtils.random.nextLong(0, 1800)))
+                .id(RandomUtils.random.nextLong())
+                .build();
+    }
+
+    public static PollEntity randomOpenReadyToClose() {
+        return PollEntity.builder()
+                .subject(RandomStringUtils.randomAlphabetic(1, 60))
+                .status(PollStatusEnum.OPEN)
+                .totalPositiveVotes(RandomUtils.random.nextLong(0, 10))
+                .totalNegativeVotes(RandomUtils.random.nextLong(0, 10))
+                .startTime(LocalDateTime.now().minusSeconds(RandomUtils.random.nextLong(1, 1800)))
+                .endTime(LocalDateTime.now().minusSeconds(1))
+                .id(RandomUtils.random.nextLong())
                 .build();
     }
 }

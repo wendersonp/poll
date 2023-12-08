@@ -3,10 +3,9 @@ package com.personal.poll.domain.service.unit;
 import com.personal.poll.domain.dto.member.MemberCreateDTO;
 import com.personal.poll.domain.exception.MemberCpfNotUniqueException;
 import com.personal.poll.domain.fixture.member.dto.MemberCreateDTOFixture;
-import com.personal.poll.domain.fixture.poll.models.MemberEntityFixture;
+import com.personal.poll.domain.fixture.member.models.MemberEntityFixture;
 import com.personal.poll.domain.models.MemberEntity;
 import com.personal.poll.domain.repository.IMemberRepository;
-import com.personal.poll.domain.service.IVoteCountService;
 import com.personal.poll.domain.service.implementation.MemberServiceImpl;
 import com.personal.poll.util.AssertUtils;
 import com.personal.poll.util.RandomUtils;
@@ -18,10 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.scheduling.TaskScheduler;
 
 import java.util.Optional;
-import java.util.Random;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.*;

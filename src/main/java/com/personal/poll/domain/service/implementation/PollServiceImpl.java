@@ -14,8 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Slf4j
 @Service
@@ -45,8 +46,12 @@ public class PollServiceImpl implements IPollService {
 
         poll.openVoting(startTime, endTime);
         pollRepository.save(poll);
-        scheduler.scheduleWithFixedDelay(() -> voteCountService.countVotesOfPoll(id),
-                Duration.ofSeconds(durationInSeconds + VOTE_COUNT_GAP));
+        scheduler.schedule(() -> voteCountService.countVotesOfPoll(id),
+                Instant.from(endTime
+                        .plusSeconds(VOTE_COUNT_GAP)
+                        .atZone(ZoneId.systemDefault())
+                )
+        );
 
         return new PollStartDTO(poll);
     }

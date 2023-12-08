@@ -38,8 +38,10 @@ public class VoteServiceImpl implements IVoteService {
     public VoteConfirmationDTO registerVote(VoteRegistryDTO voteRegistry) {
         MemberEntity voter = voterService.find(voteRegistry.getVoterId());
         PollEntity agenda = agendaService.find(voteRegistry.getAgendaId());
+
         checkAgendaStatus(agenda);
         VoteEntity vote = persistVote(voteRegistry, agenda, voter);
+
         agenda.calculateVote(vote.getVote());
         return new VoteConfirmationDTO(vote);
     }
