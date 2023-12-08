@@ -38,10 +38,6 @@ class VoteCountServiceImplTest {
 
     @Test
     void shouldCountVotesOfPollWithYesWinning() {
-        List<MemberEntity> voters = Stream
-                .generate(MemberEntityFixture::random)
-                .limit(TEST_COUNT)
-                .toList();
         long positiveVotesCount = RandomUtils.random.nextLong(TEST_COUNT/2 + 1,TEST_COUNT);
         long negativeVotesCount = TEST_COUNT - positiveVotesCount;
         PollEntity agenda = PollEntityFixture.randomOpenReadyToClose();
@@ -60,10 +56,6 @@ class VoteCountServiceImplTest {
 
     @Test
     void shouldCountVotesOfPollWithNoWinning() {
-        List<MemberEntity> voters = Stream
-                .generate(MemberEntityFixture::random)
-                .limit(TEST_COUNT)
-                .toList();
         long negativeVotesCount = RandomUtils.random.nextLong(TEST_COUNT/2 + 1,TEST_COUNT);
         long positiveVotesCount = TEST_COUNT - negativeVotesCount;
         PollEntity agenda = PollEntityFixture.randomOpenReadyToClose();

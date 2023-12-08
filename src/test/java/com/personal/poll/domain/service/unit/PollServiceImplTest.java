@@ -21,7 +21,6 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.scheduling.TaskScheduler;
 
-import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -39,19 +38,14 @@ class PollServiceImplTest {
     private IPollRepository pollRepository;
 
     @Mock
-    private IVoteCountService voteCountService;
-
-    @Mock
     private TaskScheduler scheduler;
 
     @InjectMocks
     private PollServiceImpl service;
 
-    private static PollCreateDTO pollCreateDTO;
-
     @Test
     void shouldCreatePollSuccessfully() {
-        pollCreateDTO = PollCreateDTOFixture.random();
+        PollCreateDTO pollCreateDTO = PollCreateDTOFixture.random();
 
         when(pollRepository.save(any())).thenAnswer(this::setIdAndReturnsFirstArg);
 
