@@ -4,9 +4,11 @@ import com.personal.poll.domain.dto.member.MemberCreateDTO;
 import com.personal.poll.domain.dto.member.MemberViewDTO;
 import com.personal.poll.domain.service.IMemberQueryService;
 import com.personal.poll.domain.service.IMemberService;
+import com.personal.poll.util.ControllerTags;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/member", produces = "application/vnd.example.api.v1+json")
 @RequiredArgsConstructor
+@Tag(name = ControllerTags.MEMBER_CONTROLLER_V1_TAG)
 public class MemberControllerV1 {
+
 
     private final IMemberService service;
 

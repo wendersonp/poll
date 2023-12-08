@@ -3,12 +3,12 @@ services:
     image: 'mysql:8'
     container_name: 'mysql'
     environment:
-      - 'MYSQL_DATABASE=pool'
+      - 'MYSQL_DATABASE=poll'
       - 'MYSQL_PASSWORD=password'
       - 'MYSQL_ROOT_PASSWORD=rootpassword'
       - 'MYSQL_USER=user'
     ports:
-      - '3306'
+      - '3307:3306'
   rabbitmq:
     image: 'rabbitmq:3-management'
     container_name: 'rabbitmq'

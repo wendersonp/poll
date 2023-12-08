@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "beeceptor-client", url = "${beeceptor.client.url}")
+@FeignClient(name = "beeceptor-client", url = "${spring.cloud.feign.beeceptor-url}")
 public interface BeeceptorDocumentApiClient {
 
     @GetMapping("/users/{cpf}")

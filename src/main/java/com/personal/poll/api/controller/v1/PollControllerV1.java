@@ -5,9 +5,11 @@ import com.personal.poll.domain.dto.poll.PollStartDTO;
 import com.personal.poll.domain.dto.poll.PollViewDTO;
 import com.personal.poll.domain.service.IPollQueryService;
 import com.personal.poll.domain.service.IPollService;
+import com.personal.poll.util.ControllerTags;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/poll", produces = "application/vnd.example.api.v1+json")
 @RequiredArgsConstructor
+@Tag(name = ControllerTags.POLL_CONTROLLER_V1_TAG)
 public class PollControllerV1 {
 
     private final IPollService service;

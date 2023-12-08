@@ -15,7 +15,7 @@ public interface IPollRepository extends JpaRepository<PollEntity, Long> {
 
     List<PollEntity> findByStatus(PollStatusEnum status);
 
-    @EntityGraph(attributePaths = {"votes"})
+    @EntityGraph(attributePaths = {"votes", "votes.voter"})
     @Query("Select p From PollEntity p Where p.id = ?1")
     Optional<PollEntity> findPollWithVotesById(Long id);
 }
