@@ -6,7 +6,7 @@ import com.personal.poll.domain.fixture.member.dto.MemberCreateDTOFixture;
 import com.personal.poll.domain.fixture.member.models.MemberEntityFixture;
 import com.personal.poll.domain.models.MemberEntity;
 import com.personal.poll.domain.repository.IMemberRepository;
-import com.personal.poll.domain.service.implementation.MemberServiceImpl;
+import com.personal.poll.domain.service.impl.MemberServiceImpl;
 import com.personal.poll.util.AssertUtils;
 import com.personal.poll.util.RandomUtils;
 import jakarta.persistence.EntityNotFoundException;

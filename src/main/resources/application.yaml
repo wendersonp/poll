@@ -44,6 +44,9 @@ spring:
 logging:
   level:
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+beeceptor:
+  client.url: https://validate-cpf.free.beeceptor.com
 ---
 #Profile test
 

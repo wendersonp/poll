@@ -2,12 +2,10 @@ package com.personal.poll.domain.service.unit;
 
 import com.personal.poll.domain.enums.PollStatusEnum;
 import com.personal.poll.domain.enums.VoteValueEnum;
-import com.personal.poll.domain.fixture.member.models.MemberEntityFixture;
 import com.personal.poll.domain.fixture.poll.models.PollEntityFixture;
-import com.personal.poll.domain.models.MemberEntity;
 import com.personal.poll.domain.models.PollEntity;
 import com.personal.poll.domain.repository.IPollRepository;
-import com.personal.poll.domain.service.implementation.VoteCountServiceImpl;
+import com.personal.poll.domain.service.impl.VoteCountServiceImpl;
 import com.personal.poll.util.RandomUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,9 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;

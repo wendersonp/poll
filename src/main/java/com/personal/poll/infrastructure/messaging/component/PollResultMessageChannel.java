@@ -1,6 +1,6 @@
-package com.personal.poll.infrastructure.component;
+package com.personal.poll.infrastructure.messaging.component;
 
-import com.personal.poll.domain.dto.poll.PollResultDTO;
+import com.personal.poll.domain.dto.poll.PollReportDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -13,13 +13,13 @@ import java.util.function.Supplier;
 @RequiredArgsConstructor
 public class PollResultMessageChannel {
 
-    private final Queue<PollResultDTO> pollResultQueue = new ConcurrentLinkedQueue<>();
+    private final Queue<PollReportDTO> pollResultQueue = new ConcurrentLinkedQueue<>();
 
-    public void sendResultToChannel(PollResultDTO pollResultDTO) {
-        pollResultQueue.offer(pollResultDTO);
+    public void sendResultToChannel(PollReportDTO pollReportDTO) {
+        pollResultQueue.offer(pollReportDTO);
     }
     @Bean
-    public Supplier<PollResultDTO> voteReportSupplier() {
+    public Supplier<PollReportDTO> voteReportSupplier() {
         return pollResultQueue::poll;
     }
 }
