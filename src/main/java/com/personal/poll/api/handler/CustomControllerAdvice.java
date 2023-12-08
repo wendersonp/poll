@@ -5,6 +5,7 @@ import com.personal.poll.domain.exception.MemberCpfNotAllowedException;
 import com.personal.poll.domain.exception.MemberCpfNotUniqueException;
 import com.personal.poll.domain.exception.MemberCpfNotValidException;
 import com.personal.poll.domain.exception.PendingPollException;
+import com.personal.poll.domain.exception.PollNotPendingException;
 import com.personal.poll.domain.exception.VoteAlreadyRegisteredException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +26,11 @@ public class CustomControllerAdvice extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
-    @ExceptionHandler({ClosedPollException.class, PendingPollException.class, MemberCpfNotValidException.class})
+    @ExceptionHandler({ClosedPollException.class,
+            PendingPollException.class,
+            PollNotPendingException.class,
+            MemberCpfNotValidException.class,
+    })
     public ResponseEntity<Object> handleBadRequestException(RuntimeException ex, WebRequest request) {
         ErrorResponse errorResponse = ErrorResponse.create(ex, HttpStatus.BAD_REQUEST, ex.getMessage());
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
