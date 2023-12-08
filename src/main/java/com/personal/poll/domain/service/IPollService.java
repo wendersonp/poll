@@ -5,6 +5,8 @@ import com.personal.poll.domain.dto.poll.PollStartDTO;
 import com.personal.poll.domain.dto.poll.PollViewDTO;
 import com.personal.poll.domain.models.PollEntity;
 
+import java.util.List;
+
 public interface IPollService {
 
     PollViewDTO create(PollCreateDTO pollCreate);
@@ -12,4 +14,6 @@ public interface IPollService {
     PollStartDTO start(Long id, Long durationInSeconds);
 
     PollEntity find(Long id);
+
+    List<PollEntity> findAll();
 }

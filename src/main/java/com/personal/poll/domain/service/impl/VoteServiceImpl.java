@@ -1,4 +1,4 @@
-package com.personal.poll.domain.service.implementation;
+package com.personal.poll.domain.service.impl;
 
 import com.personal.poll.domain.dto.vote.VoteConfirmationDTO;
 import com.personal.poll.domain.dto.vote.VoteRegistryDTO;
@@ -13,6 +13,7 @@ import com.personal.poll.domain.repository.IVoteRepository;
 import com.personal.poll.domain.service.IMemberService;
 import com.personal.poll.domain.service.IPollService;
 import com.personal.poll.domain.service.IVoteService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,12 @@ public class VoteServiceImpl implements IVoteService {
 
         agenda.calculateVote(vote.getVote());
         return new VoteConfirmationDTO(vote);
+    }
+
+    @Override
+    public VoteEntity find(Long id) {
+        return voteRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     private void checkAgendaStatus(PollEntity agenda){

@@ -1,4 +1,4 @@
-package com.personal.poll.domain.service.implementation;
+package com.personal.poll.domain.service.impl;
 
 import com.personal.poll.domain.dto.poll.PollCreateDTO;
 import com.personal.poll.domain.dto.poll.PollStartDTO;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -59,6 +60,11 @@ public class PollServiceImpl implements IPollService {
     @Override
     public PollEntity find(Long id) {
         return pollRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ExceptionMessages.POLL_NOT_FOUND));
+    }
+
+    @Override
+    public List<PollEntity> findAll() {
+        return pollRepository.findAll();
     }
 
     private LocalDateTime calculateVotingEndingTime(LocalDateTime startTime, Long durationInSeconds) {

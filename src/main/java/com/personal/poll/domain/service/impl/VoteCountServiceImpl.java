@@ -1,6 +1,6 @@
-package com.personal.poll.domain.service.implementation;
+package com.personal.poll.domain.service.impl;
 
-import com.personal.poll.domain.dto.poll.PollResultDTO;
+import com.personal.poll.domain.dto.poll.PollReportDTO;
 import com.personal.poll.domain.enums.PollStatusEnum;
 import com.personal.poll.domain.enums.VoteValueEnum;
 import com.personal.poll.domain.models.PollEntity;
@@ -30,7 +30,7 @@ public class VoteCountServiceImpl implements IVoteCountService {
             startVoteCount(poll);
             log.info("Agenda: {}, Winning vote: {}, Total votes {}",
                     poll.getSubject(), poll.getWinningVote(), totalVotes);
-            pollResultMessageService.send(new PollResultDTO(poll));
+            pollResultMessageService.send(new PollReportDTO(poll));
             pollRepository.save(poll);
         }
     }

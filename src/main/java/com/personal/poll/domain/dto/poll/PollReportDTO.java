@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PollResultDTO {
+public class PollReportDTO {
 
     private String subject;
 
@@ -38,7 +38,7 @@ public class PollResultDTO {
 
     private List<VoteReportDTO> voteReport;
 
-    public PollResultDTO(PollEntity poll) {
+    public PollReportDTO(PollEntity poll) {
         this.subject = poll.getSubject();
         this.winner = poll.getWinningVote();
         this.startTime = poll.getStartTime();

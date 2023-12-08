@@ -1,7 +1,9 @@
 package com.personal.poll.api.handler;
 
 import com.personal.poll.domain.exception.ClosedPollException;
+import com.personal.poll.domain.exception.MemberCpfNotAllowedException;
 import com.personal.poll.domain.exception.MemberCpfNotUniqueException;
+import com.personal.poll.domain.exception.MemberCpfNotValidException;
 import com.personal.poll.domain.exception.PendingPollException;
 import com.personal.poll.domain.exception.VoteAlreadyRegisteredException;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,10 +25,16 @@ public class CustomControllerAdvice extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
-    @ExceptionHandler({ClosedPollException.class, PendingPollException.class})
+    @ExceptionHandler({ClosedPollException.class, PendingPollException.class, MemberCpfNotValidException.class})
     public ResponseEntity<Object> handleBadRequestException(RuntimeException ex, WebRequest request) {
         ErrorResponse errorResponse = ErrorResponse.create(ex, HttpStatus.BAD_REQUEST, ex.getMessage());
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({MemberCpfNotAllowedException.class})
+    public ResponseEntity<Object> handleForbiddenException(RuntimeException ex, WebRequest request) {
+        ErrorResponse errorResponse = ErrorResponse.create(ex, HttpStatus.FORBIDDEN, ex.getMessage());
+        return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), HttpStatus.FORBIDDEN, request);
     }
 
     @ExceptionHandler({EntityNotFoundException.class})

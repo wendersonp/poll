@@ -15,7 +15,7 @@ import com.personal.poll.domain.models.VoteEntity;
 import com.personal.poll.domain.repository.IVoteRepository;
 import com.personal.poll.domain.service.IMemberService;
 import com.personal.poll.domain.service.IPollService;
-import com.personal.poll.domain.service.implementation.VoteServiceImpl;
+import com.personal.poll.domain.service.impl.VoteServiceImpl;
 import com.personal.poll.util.AssertUtils;
 import com.personal.poll.util.RandomUtils;
 import jakarta.validation.ConstraintViolationException;
