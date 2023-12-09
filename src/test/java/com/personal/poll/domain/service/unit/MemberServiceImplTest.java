@@ -12,13 +12,13 @@ import com.personal.poll.domain.service.impl.MemberServiceImpl;
 import com.personal.poll.util.AssertUtils;
 import com.personal.poll.util.RandomUtils;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Optional;
 
@@ -64,7 +64,7 @@ class MemberServiceImplTest {
     void shouldThrowMemberCpfNotUniqueExceptionWhenConstraintViolationExceptionIsThrown() {
         memberDTO = MemberCreateDTOFixture.random();
         when(validateDocumentService.shouldMemberVote(any())).thenReturn(true);
-        when(memberRepository.save(any())).thenThrow(ConstraintViolationException.class);
+        when(memberRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
         assertThrows(MemberCpfNotUniqueException.class, () -> service.create(memberDTO));
     }
 
