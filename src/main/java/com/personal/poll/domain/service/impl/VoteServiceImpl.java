@@ -14,9 +14,9 @@ import com.personal.poll.domain.service.IMemberService;
 import com.personal.poll.domain.service.IPollService;
 import com.personal.poll.domain.service.IVoteService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,7 +67,7 @@ public class VoteServiceImpl implements IVoteService {
         try {
             VoteEntity vote = voteRegistry.toEntity(agenda, member);
             return voteRepository.save(vote);
-        } catch (ConstraintViolationException exception) {
+        } catch (DataIntegrityViolationException exception) {
             throw new VoteAlreadyRegisteredException();
         }
     }

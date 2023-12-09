@@ -6,6 +6,7 @@ import com.personal.poll.domain.service.IVoteQueryService;
 import com.personal.poll.domain.service.IVoteService;
 import com.personal.poll.util.ControllerTags;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,7 @@ public class VoteControllerV1 {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public VoteConfirmationDTO register(@RequestBody VoteRegistryDTO vote){
+    public VoteConfirmationDTO register(@RequestBody @Valid VoteRegistryDTO vote){
         return service.registerVote(vote);
     }
 

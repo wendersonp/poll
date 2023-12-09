@@ -2,7 +2,6 @@ package com.personal.poll.domain.dto.member;
 
 import com.personal.poll.domain.models.MemberEntity;
 import com.personal.poll.util.ValidationMessages;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -13,7 +12,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Valid
 public class MemberCreateDTO {
 
     @NotEmpty(message = ValidationMessages.NOT_EMPTY)

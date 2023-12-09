@@ -10,9 +10,9 @@ import com.personal.poll.domain.service.IMemberService;
 import com.personal.poll.domain.service.IValidateMemberDocumentService;
 import com.personal.poll.util.ExceptionMessages;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class MemberServiceImpl implements IMemberService {
         try {
             memberEntity = memberRepository.save(memberEntity);
             return new MemberViewDTO(memberEntity);
-        } catch (ConstraintViolationException exception) {
+        } catch (DataIntegrityViolationException exception) {
             log.warn("Membro de documento {} já existe em sistema", memberEntity.getCpfNumber());
             throw new MemberCpfNotUniqueException();
         }
