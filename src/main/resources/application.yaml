@@ -1,7 +1,11 @@
+server.port: 8081
+
 spring:
   config:
     activate.on-profile: default
   application.name: poll-service
+  docker:
+    compose.enabled: false
 
   jpa:
     hibernate.ddl-auto: update
