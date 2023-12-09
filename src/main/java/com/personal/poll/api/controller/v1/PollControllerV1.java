@@ -1,11 +1,15 @@
 package com.personal.poll.api.controller.v1;
 
-import com.personal.poll.domain.dto.member.MemberViewDTO;
 import com.personal.poll.domain.dto.poll.PollCreateDTO;
 import com.personal.poll.domain.dto.poll.PollStartDTO;
 import com.personal.poll.domain.dto.poll.PollViewDTO;
 import com.personal.poll.domain.service.IPollQueryService;
 import com.personal.poll.domain.service.IPollService;
+import com.personal.poll.util.ControllerTags;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,18 +28,29 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/poll", produces = "application/vnd.example.api.v1+json")
 @RequiredArgsConstructor
+@Tag(name = ControllerTags.POLL_CONTROLLER_V1_TAG)
 public class PollControllerV1 {
 
     private final IPollService service;
 
     private final IPollQueryService queryService;
 
+    @Operation(summary = "Registra uma pauta no sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Pauta criada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Um ou varios campos são invalidos")
+    })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PollViewDTO create(@RequestBody PollCreateDTO pollCreateDTO){
         return service.create(pollCreateDTO);
     }
 
+    @Operation(summary = "Inicia a votação de uma pauta")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pauta iniciada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Um ou varios campos são invalidos")
+    })
     @PutMapping("/start/{id}")
     @ResponseStatus(HttpStatus.OK)
     public PollStartDTO start(@PathVariable @Positive Long id,
@@ -43,11 +58,20 @@ public class PollControllerV1 {
         return service.start(id, duration);
     }
 
+    @Operation(summary = "Busca a lista de pautas cadastradas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Fornece lista de pautas")
+    })
     @GetMapping()
     public List<PollViewDTO> findAll() {
         return queryService.findAll();
     }
 
+    @Operation(summary = "Busca a pauta cadastrada por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Fornece pauta encontrada"),
+            @ApiResponse(responseCode = "404", description = "Pauta em questão nao foi encontrada")
+    })
     @GetMapping("/{id}")
     public PollViewDTO find(@PathVariable Long id) {
         return queryService.findOne(id);

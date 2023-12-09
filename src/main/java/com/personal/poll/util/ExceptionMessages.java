@@ -14,6 +14,8 @@ public class ExceptionMessages {
 
     public static final String PENDING_POLL = "Voting for this poll did not start yet";
 
+    public static final String POLL_NOT_PENDING = "This poll is not pending to be voted";
+
     public static final String CLOSED_POLL = "Voting for this poll is already closed";
 
     public static final String VOTE_ALREADY_REGISTERED = "Vote of this associate for current agenda was already registered";

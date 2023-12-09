@@ -1,10 +1,11 @@
 package com.personal.poll.api.controller.v1;
 
-import com.personal.poll.domain.dto.poll.PollViewDTO;
 import com.personal.poll.domain.dto.vote.VoteConfirmationDTO;
 import com.personal.poll.domain.dto.vote.VoteRegistryDTO;
 import com.personal.poll.domain.service.IVoteQueryService;
 import com.personal.poll.domain.service.IVoteService;
+import com.personal.poll.util.ControllerTags;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/vote", produces = "application/vnd.example.api.v1+json")
 @RequiredArgsConstructor
+@Tag(name = ControllerTags.VOTE_CONTROLLER_V1_TAG)
 public class VoteControllerV1 {
 
     private final IVoteService service;

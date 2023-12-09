@@ -3,6 +3,7 @@ package com.personal.poll.domain.service.unit;
 import com.personal.poll.domain.dto.poll.PollCreateDTO;
 import com.personal.poll.domain.dto.poll.PollViewDTO;
 import com.personal.poll.domain.enums.PollStatusEnum;
+import com.personal.poll.domain.exception.PollNotPendingException;
 import com.personal.poll.domain.fixture.poll.dto.PollCreateDTOFixture;
 import com.personal.poll.domain.fixture.poll.models.PollEntityFixture;
 import com.personal.poll.domain.models.PollEntity;
@@ -73,6 +74,27 @@ class PollServiceImplTest {
                     LocalDateTime executionTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
                     return executionTime.isAfter(agenda.getEndTime());
                 }));
+    }
+
+    @Test
+    void shouldThrowPollNotPendingExceptionWhenPollStatusOpen() {
+        PollEntity agenda = PollEntityFixture.randomOpen();
+        Long agendaId = agenda.getId();
+        long duration = RandomUtils.random.nextLong(0, 500);
+
+        when(pollRepository.findById(any())).thenReturn(Optional.of(agenda));
+        assertThrows(PollNotPendingException.class, () -> service.start(agendaId, duration));
+    }
+
+    @Test
+    void shouldThrowPollNotPendingExceptionWhenPollStatusClosed() {
+        PollEntity agenda = PollEntityFixture.randomOpen();
+        agenda.setStatus(PollStatusEnum.CLOSED);
+        long duration = RandomUtils.random.nextLong(0, 500);
+        Long agendaId = agenda.getId();
+
+                when(pollRepository.findById(any())).thenReturn(Optional.of(agenda));
+        assertThrows(PollNotPendingException.class, () -> service.start(agendaId, duration));
     }
 
     @Test

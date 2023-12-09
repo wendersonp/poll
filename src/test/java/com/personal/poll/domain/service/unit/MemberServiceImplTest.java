@@ -1,11 +1,13 @@
 package com.personal.poll.domain.service.unit;
 
 import com.personal.poll.domain.dto.member.MemberCreateDTO;
+import com.personal.poll.domain.exception.MemberCpfNotAllowedException;
 import com.personal.poll.domain.exception.MemberCpfNotUniqueException;
 import com.personal.poll.domain.fixture.member.dto.MemberCreateDTOFixture;
 import com.personal.poll.domain.fixture.member.models.MemberEntityFixture;
 import com.personal.poll.domain.models.MemberEntity;
 import com.personal.poll.domain.repository.IMemberRepository;
+import com.personal.poll.domain.service.IValidateMemberDocumentService;
 import com.personal.poll.domain.service.impl.MemberServiceImpl;
 import com.personal.poll.util.AssertUtils;
 import com.personal.poll.util.RandomUtils;
@@ -30,6 +32,9 @@ class MemberServiceImplTest {
     @Mock
     private IMemberRepository memberRepository;
 
+    @Mock
+    private IValidateMemberDocumentService validateDocumentService;
+
     @InjectMocks
     private MemberServiceImpl service;
 
@@ -39,6 +44,8 @@ class MemberServiceImplTest {
     void shouldCreateNewMemberSuccessfully() {
         memberDTO = MemberCreateDTOFixture.random();
 
+
+        when(validateDocumentService.shouldMemberVote(any())).thenReturn(true);
         when(memberRepository.save(any())).then(this::setIdAndReturnsFirstArg);
         var memberViewDTO = service.create(memberDTO);
 
@@ -47,8 +54,16 @@ class MemberServiceImplTest {
     }
 
     @Test
+    void shouldThrowMemberCpfNotAllowedExceptionWhenValidating() {
+        memberDTO = MemberCreateDTOFixture.random();
+        when(validateDocumentService.shouldMemberVote(any())).thenReturn(false);
+        assertThrows(MemberCpfNotAllowedException.class, () -> service.create(memberDTO));
+    }
+
+    @Test
     void shouldThrowMemberCpfNotUniqueExceptionWhenConstraintViolationExceptionIsThrown() {
         memberDTO = MemberCreateDTOFixture.random();
+        when(validateDocumentService.shouldMemberVote(any())).thenReturn(true);
         when(memberRepository.save(any())).thenThrow(ConstraintViolationException.class);
         assertThrows(MemberCpfNotUniqueException.class, () -> service.create(memberDTO));
     }

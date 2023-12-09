@@ -3,6 +3,8 @@ package com.personal.poll.domain.service.impl;
 import com.personal.poll.domain.dto.poll.PollCreateDTO;
 import com.personal.poll.domain.dto.poll.PollStartDTO;
 import com.personal.poll.domain.dto.poll.PollViewDTO;
+import com.personal.poll.domain.enums.PollStatusEnum;
+import com.personal.poll.domain.exception.PollNotPendingException;
 import com.personal.poll.domain.models.PollEntity;
 import com.personal.poll.domain.repository.IPollRepository;
 import com.personal.poll.domain.service.IPollService;
@@ -41,7 +43,7 @@ public class PollServiceImpl implements IPollService {
     @Override
     public PollStartDTO start(Long id, Long durationInSeconds) {
         PollEntity poll = find(id);
-
+        validatePollBeforeStart(poll);
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = calculateVotingEndingTime(startTime, durationInSeconds);
 
@@ -69,5 +71,11 @@ public class PollServiceImpl implements IPollService {
 
     private LocalDateTime calculateVotingEndingTime(LocalDateTime startTime, Long durationInSeconds) {
         return startTime.plusSeconds(durationInSeconds);
+    }
+
+    private void validatePollBeforeStart(PollEntity poll) {
+        if (PollStatusEnum.PENDING != poll.getStatus()) {
+            throw new PollNotPendingException();
+        }
     }
 }

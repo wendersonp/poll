@@ -42,6 +42,7 @@ public class PollReportDTO {
         this.subject = poll.getSubject();
         this.winner = poll.getWinningVote();
         this.startTime = poll.getStartTime();
+        this.endTime = poll.getEndTime();
         this.totalVotes = poll.getTotalNegativeVotes() + poll.getTotalPositiveVotes();
         this.positiveVotes = poll.getTotalPositiveVotes();
         this.negativeVotes = poll.getTotalNegativeVotes();
