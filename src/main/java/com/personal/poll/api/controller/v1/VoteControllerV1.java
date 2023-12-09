@@ -5,6 +5,9 @@ import com.personal.poll.domain.dto.vote.VoteRegistryDTO;
 import com.personal.poll.domain.service.IVoteQueryService;
 import com.personal.poll.domain.service.IVoteService;
 import com.personal.poll.util.ControllerTags;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +30,24 @@ public class VoteControllerV1 {
 
     private final IVoteQueryService queryService;
 
+    @Operation(summary = "Registra um voto de um associado em uma pauta")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Voto confirmado"),
+            @ApiResponse(responseCode = "400", description = "Pauta não está em votação"),
+            @ApiResponse(responseCode = "404", description = "Associado ou pauta não existem"),
+            @ApiResponse(responseCode = "409", description = "Voto em questão já foi registrado")
+    })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public VoteConfirmationDTO register(@RequestBody @Valid VoteRegistryDTO vote){
         return service.registerVote(vote);
     }
 
+    @Operation(summary = "Procura pela confirmação de um voto pelo id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Confirmação encontrada"),
+            @ApiResponse(responseCode = "404", description = "Voto não existe no sistema"),
+    })
     @GetMapping("/{id}")
     public VoteConfirmationDTO find(@PathVariable Long id) {
         return queryService.find(id);
