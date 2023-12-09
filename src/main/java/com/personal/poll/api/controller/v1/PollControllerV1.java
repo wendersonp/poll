@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,7 @@ public class PollControllerV1 {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PollViewDTO create(@RequestBody PollCreateDTO pollCreateDTO){
+    public PollViewDTO create(@RequestBody @Valid PollCreateDTO pollCreateDTO){
         return service.create(pollCreateDTO);
     }
 

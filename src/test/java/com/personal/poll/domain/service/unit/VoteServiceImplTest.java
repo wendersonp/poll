@@ -18,7 +18,6 @@ import com.personal.poll.domain.service.IPollService;
 import com.personal.poll.domain.service.impl.VoteServiceImpl;
 import com.personal.poll.util.AssertUtils;
 import com.personal.poll.util.RandomUtils;
-import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,6 +27,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.stream.Stream;
 
@@ -119,7 +119,7 @@ class VoteServiceImplTest {
 
         when(voterService.find(voter.getId())).thenReturn(voter);
         when(agendaService.find(agenda.getId())).thenReturn(agenda);
-        when(repository.save(any())).thenThrow(ConstraintViolationException.class);
+        when(repository.save(any())).thenThrow(DataIntegrityViolationException.class);
 
         assertThrows(VoteAlreadyRegisteredException.class, () -> service.registerVote(vote));
 
