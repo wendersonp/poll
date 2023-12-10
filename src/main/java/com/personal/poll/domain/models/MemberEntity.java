@@ -13,6 +13,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Entidade do associado
+ */
 @Entity
 @Table(name = "tb_member")
 @Getter
@@ -21,13 +24,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class MemberEntity {
+
+    /**
+     * Id do associado
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Nome do associado, máximo 40 caractéres
+     */
     @Column(columnDefinition = "VARCHAR(40)")
     private String name;
 
+    /**
+     * CPF do associado, no formato de 11 dígitos
+     */
     @Column(length = 11, unique = true)
     private String cpfNumber;
 }
