@@ -20,7 +20,10 @@ Para rodar a aplicação, é necessário ter instalado no sistema:
 
 ### Baixando e configurando as ferramentas necessárias
 
-1. Com o docker propriamente instalado, baixe o arquivo [compose.yml](https://github.com/wendersonp/poll/releases/download/v1.0.0-alpha/compose.yaml)
+- Caso queira rodar a aplicação com integracao direta com docker, que sobe os containeres neocessarios
+automáticamente, baixe o arquivo compose.yml e pule para a próxima seção
+
+1. Com o docker propriamente instalado, baixe o arquivo [compose.yml](https://github.com/wendersonp/poll/releases)
 e salve em uma pasta de sua preferência
 2. Rode o seguinte comando através do terminal no diretório com o arquivo salvo
 ```
@@ -30,7 +33,7 @@ docker-compose -f compose.yaml up -d
 
 ### Executando a aplicação
 
-1. Baixe o [binário da release](https://github.com/wendersonp/poll/releases/download/v1.0.0-alpha/poll-1.0.0.jar)
+1. Baixe o [binário da release](https://github.com/wendersonp/poll/releases)
 Pelo link ou através da página de releases no repositório
 2. Após ter executado e criado os conteineres com as ferramentas necessárias, 
 , ter instalado a Runtime do Java, execute a aplicação com o seguinte comando:
@@ -38,6 +41,12 @@ Pelo link ou através da página de releases no repositório
 ```
 java -jar poll-<versao>.jar
 ```
+- Para executar a aplicação com integração com o docker, utilize o seguinte comando no lugar:
+
+```
+java -jar -Dspring-boot.run.profiles=docker-integration poll-<versao>.jar
+```
+
 ### Testando se tá tudo certo
 
 Acesse o endereço a seguir no navegador para conferir se a aplicação está rodando corretamente

@@ -8,7 +8,7 @@ import com.personal.poll.domain.models.MemberEntity;
 import com.personal.poll.domain.repository.IMemberRepository;
 import com.personal.poll.domain.service.IMemberService;
 import com.personal.poll.domain.service.IValidateMemberDocumentService;
-import com.personal.poll.util.ExceptionMessages;
+import com.personal.poll.domain.util.ExceptionMessages;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

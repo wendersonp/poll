@@ -5,7 +5,7 @@ import com.personal.poll.domain.dto.poll.PollStartDTO;
 import com.personal.poll.domain.dto.poll.PollViewDTO;
 import com.personal.poll.domain.service.IPollQueryService;
 import com.personal.poll.domain.service.IPollService;
-import com.personal.poll.util.ControllerTags;
+import com.personal.poll.api.controller.v1.tags.ControllerTags;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

@@ -1,4 +1,4 @@
-package com.personal.poll.util;
+package com.personal.poll.domain.util;
 
 public class ExceptionMessages {
     public static final String MEMBER_NOT_FOUND = "Member was not found";

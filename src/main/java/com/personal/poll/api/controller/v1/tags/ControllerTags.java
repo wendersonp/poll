@@ -1,4 +1,4 @@
-package com.personal.poll.util;
+package com.personal.poll.api.controller.v1.tags;
 
 public class ControllerTags {
 

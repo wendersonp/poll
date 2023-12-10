@@ -9,7 +9,7 @@ import com.personal.poll.domain.models.PollEntity;
 import com.personal.poll.domain.repository.IPollRepository;
 import com.personal.poll.domain.service.IPollService;
 import com.personal.poll.domain.service.IVoteCountService;
-import com.personal.poll.util.ExceptionMessages;
+import com.personal.poll.domain.util.ExceptionMessages;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

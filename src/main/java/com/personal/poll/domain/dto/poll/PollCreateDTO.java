@@ -2,7 +2,7 @@ package com.personal.poll.domain.dto.poll;
 
 import com.personal.poll.domain.enums.PollStatusEnum;
 import com.personal.poll.domain.models.PollEntity;
-import com.personal.poll.util.ValidationMessages;
+import com.personal.poll.domain.util.ValidationMessages;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
