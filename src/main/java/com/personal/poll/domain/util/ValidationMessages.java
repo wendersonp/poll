@@ -1,4 +1,4 @@
-package com.personal.poll.util;
+package com.personal.poll.domain.util;
 
 public class ValidationMessages {
 

@@ -1,7 +1,7 @@
 package com.personal.poll.domain.dto.member;
 
 import com.personal.poll.domain.models.MemberEntity;
-import com.personal.poll.util.ValidationMessages;
+import com.personal.poll.domain.util.ValidationMessages;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

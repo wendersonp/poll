@@ -1,6 +1,6 @@
 package com.personal.poll.domain.exception;
 
-import com.personal.poll.util.ExceptionMessages;
+import com.personal.poll.domain.util.ExceptionMessages;
 
 public class MemberCpfNotAllowedException extends RuntimeException{
     public MemberCpfNotAllowedException() {
