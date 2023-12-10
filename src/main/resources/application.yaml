@@ -52,14 +52,6 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 ---
-#Profile docker-integration
-spring:
-  config:
-    activate.on-profile: docker-integration
-  docker:
-    compose.enabled: true
-
----
 #Profile test
 
 spring:
@@ -69,4 +61,4 @@ spring:
     url: jdbc:h2:mem:testdb;MODE=MYSQL
     username: user
     password:
-  cloud.feign.beeceptor-url: #{http://localhost:9000}
+  cloud.feign.beeceptor-url: http://localhost:9000
